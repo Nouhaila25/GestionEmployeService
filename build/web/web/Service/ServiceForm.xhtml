@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <title>Facelet Title</title>
+        </h:head>
+        <h:body>
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <h:form>
+                        <p:panelGrid columns="4">
+                            <p:clock pattern="dd/MM/yyyy" />
+                            <p:clock pattern="hh:mm:ss" />
+                            <p:outputLabel value="Select Calendar"/>
+                            <p:calendar id="cal"  navigator="true" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="250" header="Menu" collapsible="true">
+                    <h:form>
+                        <p:menu>
+                            <p:submenu label="Navigations">
+                                <p:menuitem value="G. Machine" outcome="/web/machine/machineForm.xhtml" icon="ui-icon-star"/>
+                                <p:menuitem value="G. Salle" outcome="/web/salle/salleForm.xhtml" icon="ui-icon-star"/>
+                                <p:menuitem value="Services" outcome="/web/Service/ServiceForm" icon="ui-icon-star"/>
+                                <p:menuitem value="G. Service" outcome="/web/Service/GestionServiceForm" icon="ui-icon-star"/>
+                                <p:menuitem value="G. Employe" outcome="/web/Employe/EmployeForm" icon="ui-icon-star"/>
+                                <p:menuitem value="Statistics"  icon="ui-icon-star"/>
+                            </p:submenu>
+                        </p:menu> 
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <f:view>
+                        <h:form id="f2">
+                            <p:tree id="employeeTree" value="#{employeBean.root}" var="node" selectionMode="single">
+                                <p:treeNode>
+                                    <h:outputText value="#{node.nom}" />
+                                    
+                                </p:treeNode>
+                                <p:treeNode type="service" expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
+                                    <h:outputText value="#{node.nom}" />
+                                    
+                                    <p:treeNode type="chief" expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
+                                        <h:outputText value="#{node.nom} #{node.prenom}" />
+                                     
+                                    </p:treeNode>
+                                    <p:treeNode type="employee" expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
+                                        <h:outputText value="#{node.nom} #{node.prenom}" />
+                                       
+                                    </p:treeNode>
+                                </p:treeNode>
+                            </p:tree>
+
+                            <p:contextMenu for="employeeTree">
+                                <p:menuitem value="Delete" action="#{employeBean.deleteNode}" update="employeeTree" icon="pi pi-times"/>
+                            </p:contextMenu>
+
+
+                        </h:form>
+                    </f:view>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
